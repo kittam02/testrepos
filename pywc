@@ -1,0 +1,74 @@
+#!/usr/bin/python3
+
+import sys
+
+print(sys.argv)
+
+print(sys.argv[0])
+
+print(len(sys.argv))
+
+cOption = True
+wOption = True
+lOption = True
+mOption = False
+
+if len(sys.argv) > 1 and sys.argv[1][0] == "-":
+	cOption = False
+	wOption = False
+	lOption = False
+openfile = open(sys.argv[2])
+
+for arg in sys.argv:
+	
+	if arg[0] == "-":
+		if "l" in arg:
+			lOption = True
+		if "c" in arg:
+			cOption = True
+		if "w" in arg:
+			wOption = True
+		if "m" in arg:
+			mOption = True
+print(lOption)
+if lOption == True:
+	for line in openfile:
+		num_lines = sum(1 for line in openfile)
+	print(num_lines)
+
+if cOption == True:
+	for char in openfile:
+		byte_size = sum(1 for char in openfile)
+	print(byte_size)
+if wOption == True:
+	for str in openfile:
+		word_count = sum(1 for str in openfile)
+	print(word_count)
+if mOption == True:
+	for char in openfile:
+		characters = sum(1 for char in openfile)
+	print(characters)
+#Accumulator Pattern
+#accumulator = 0
+
+#for i in range(10):
+#	accumulator = accumulator + 2 * i
+
+#print(accumulator)
+
+#s = sys.argv[1]
+
+#iterate over a string
+#for c in s:
+#	print(c)
+
+#iterate over a file
+#myfile = open("pywc")
+#for line in myfile:
+#	print(line)
+
+	#splitting a string
+#	for word in line.split():
+#		print(word)
+
+
