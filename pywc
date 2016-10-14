@@ -1,74 +1,62 @@
 #!/usr/bin/python3
-
 import sys
-
-print(sys.argv)
-
-print(sys.argv[0])
-
-print(len(sys.argv))
 
 cOption = True
 wOption = True
 lOption = True
 mOption = False
 
-if len(sys.argv) > 1 and sys.argv[1][0] == "-":
-	cOption = False
-	wOption = False
-	lOption = False
-openfile = open(sys.argv[2])
+def countLines(lines):
+	lineCount = 0
+	for line in lines:
+		lineCount += 1
+	return lineCount
 
-for arg in sys.argv:
-	
-	if arg[0] == "-":
-		if "l" in arg:
+def countWords(lines):
+    wordCount = 0
+    for line in lines:
+        wordCount += len(line.split(' '))
+    return wordCount
+
+def countCharacters(lines):
+    charCount = 0
+    for line in lines:
+        for character in line:
+            charCount += 1
+    return charCount
+
+
+optionsFound = False
+files = []
+for i in range(1,len(sys.argv)):
+	if sys.argv[i][0] != "-":
+		files.append(sys.argv[i])
+		openfile = open(files[0])
+		string = openfile.read()
+
+		#Found some options
+		if not optionsFound:
+			cOption = False
+			wOption = False
+			lOption = False
+			optionsFound = True
+		if "l" in sys.argv[i]:
 			lOption = True
-		if "c" in arg:
+			if lOption == True:
+				countLines(string)
+		if "c" in sys.argv[i]:
 			cOption = True
-		if "w" in arg:
+			if cOption == True:
+				countCharacters(string)
+		if "w" in sys.argv[i]:
 			wOption = True
-		if "m" in arg:
+			if wOption == True:
+				countWords(string)
+		if "m" in sys.argv[i]:
 			mOption = True
-print(lOption)
-if lOption == True:
-	for line in openfile:
-		num_lines = sum(1 for line in openfile)
-	print(num_lines)
 
-if cOption == True:
-	for char in openfile:
-		byte_size = sum(1 for char in openfile)
-	print(byte_size)
-if wOption == True:
-	for str in openfile:
-		word_count = sum(1 for str in openfile)
-	print(word_count)
-if mOption == True:
-	for char in openfile:
-		characters = sum(1 for char in openfile)
-	print(characters)
-#Accumulator Pattern
-#accumulator = 0
 
-#for i in range(10):
-#	accumulator = accumulator + 2 * i
 
-#print(accumulator)
 
-#s = sys.argv[1]
-
-#iterate over a string
-#for c in s:
-#	print(c)
-
-#iterate over a file
-#myfile = open("pywc")
-#for line in myfile:
-#	print(line)
-
-	#splitting a string
-#	for word in line.split():
-#		print(word)
-
+print(lineCount+"/t"+wordCount+"/t"+charCount+"/t"+files[0])
 
